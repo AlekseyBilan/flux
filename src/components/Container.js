@@ -1,19 +1,33 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
 import ArticleList from './ArticleList';
+import {articlesStore} from "../stores";
 
 class Container extends Component {
-    static propTypes = {
-        articles: PropTypes.array.isRequired
-    };
 
     constructor() {
         super();
+        this.state = {
+            articles : articlesStore.getAll()
+        }
+    }
+
+    componentDidMount(){
+        articlesStore.addChangeListener(this.handleChange);
+    }
+
+    componentWillUnmount(){
+        articlesStore.removeChangeListener(this.handleChange);
+    }
+
+    handleChange = () => {
+        this.setState({
+            articles : articlesStore.getAll()
+        })
     }
 
     render() {
         return (
-            <ArticleList articles = {this.props.articles} />
+            <ArticleList articles = {this.state.articles}/>
         )
     }
 }

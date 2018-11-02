@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CommentList from './CommentList';
+import {deleteArticle} from  '../AC/articles'
 
 class Article extends Component {
     static propTypes = {
@@ -23,17 +24,24 @@ class Article extends Component {
         const body = this.state.isOpen ? this.getBody() : null
         return (
             <div>
-                <a href = "#" onClick = {this.handelClick}>{article.title}</a>
+                <h1 onClick = {this.toggleOpen}> {article.title} </h1>
+                <a href='#' onClick = {this.handleDelete}> Delete article </a>
                 {body}
             </div>
         )
     }
 
-    handelClick = (ev) => {
-        ev.preventDefault()
+    toggleOpen = (ev) => {
+        ev.preventDefault();
         this.setState({
             isOpen: !this.state.isOpen
-        })
+        });
+    }
+
+    handleDelete = (ev) => {
+        ev.preventDefault();
+        console.log('Delete article id = ', this.props.article.id);
+        deleteArticle(this.props.article.id);
     }
 
     getBody() {
