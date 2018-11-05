@@ -15,7 +15,11 @@ export default class ArticleList extends Component {
             </li>);
 
         return(
-            <ul>{articleElements}</ul>
+            <div>
+                <h1>Articles List</h1>
+                <ul>{articleElements}</ul>
+            </div>
+
         )
     }
 }
