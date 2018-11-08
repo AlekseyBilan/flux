@@ -5,6 +5,7 @@ import AppDispatcher from '../dispatchers'
 class ArticleStore extends EventEmitter {
     constructor(initialState = []) {
         super();
+        this.errors = [];
         this._items = {};
         initialState.forEach(this._addItem);
 
@@ -23,9 +24,13 @@ class ArticleStore extends EventEmitter {
                     break;
 
                 case LOAD_ALL_ARTICLES_SUCCESS:
-                    console.log(payload.response);
                     payload.response.forEach(this._addItem);
                     this.loading = false;
+                    this.emitChange();
+                    break;
+
+                case LOAD_ALL_ARTICLES_FAIL:
+                    this.errors = payload.errors;
                     this.emitChange();
                     break;
 

@@ -25,7 +25,7 @@ class Article extends Component {
         return (
             <div>
                 <h1 onClick = {this.toggleOpen}> {article.title} </h1>
-                <a href='#' onClick = {this.handleDelete}> Delete article </a>
+                <button onClick = {this.handleDelete}> Delete article </button>
                 {body}
             </div>
         )

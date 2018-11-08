@@ -3,15 +3,7 @@ var mocks = require('./mock');
 var assign = require('object-assign');
 
 router.get('/articles', function (req, res, next) {
-    var articles = withComments(mocks.articles).map(function (article) {
-            return assign({}, article, {
-                text: undefined
-            })
-        }),
-        limit = Number(req.query.limit) || articles.length,
-        offset = Number(req.query.offset) || 0;
-
-    res.json(articles.slice(offset, limit + offset))
+    res.json(mocks.articles);
 });
 
 router.get('/article/:id', function (req, res, next) {

@@ -2,19 +2,13 @@ import AppDispatcher from '../dispatchers'
 import {DELETE_ARTICLE, LOAD_ALL_ARTICLES_FAIL, LOAD_ALL_ARTICLES_START, LOAD_ALL_ARTICLES_SUCCESS} from "../constants";
 
 export function deleteArticle(id){
-    const action = {
+    AppDispatcher.dispatch({
         type: DELETE_ARTICLE,
-        payload: {
-            id
-        }
-    };
-
-    AppDispatcher.dispatch(action);
-    console.log('AC--- deleteArticle', action);
+        payload: { id }
+    })
 }
 
 export function loadAllArticles(){
-    setTimeout(() => {
         const xhr = new XMLHttpRequest();
         xhr.open('GET', 'http://localhost:3001/api/articles', true);
         xhr.setRequestHeader('Content-Type', 'application/json');
@@ -35,14 +29,11 @@ export function loadAllArticles(){
                 });
                 return;
             }
+
             let response = this.responseText;
             AppDispatcher.dispatch({
                 type: LOAD_ALL_ARTICLES_SUCCESS,
                 payload: { response: JSON.parse(response) }
             });
         };
-
-        console.log('AC--- LOAD_ALL_ARTICLES_START');
-    }, 1000);
-
 }
