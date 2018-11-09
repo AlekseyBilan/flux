@@ -1,4 +1,4 @@
-import {DELETE_ARTICLE, LOAD_ALL_ARTICLES_FAIL, LOAD_ALL_ARTICLES_START, LOAD_ALL_ARTICLES_SUCCESS} from "../constants";
+import {DELETE_ARTICLE, LOAD_ALL_ARTICLES, FAIL, START, SUCCESS} from "../constants";
 import {EventEmitter} from 'events';
 import AppDispatcher from '../dispatchers'
 
@@ -15,28 +15,25 @@ class ArticleStore extends EventEmitter {
             switch (type){
                 case DELETE_ARTICLE:
                     this._delete(payload.id);
-                    this.emitChange();
                     break;
 
-                case LOAD_ALL_ARTICLES_START:
+                case LOAD_ALL_ARTICLES+START:
                     this.loading = true;
-                    this.emitChange();
                     break;
 
-                case LOAD_ALL_ARTICLES_SUCCESS:
+                case LOAD_ALL_ARTICLES+SUCCESS:
                     payload.response.forEach(this._addItem);
                     this.loading = false;
-                    this.emitChange();
                     break;
 
-                case LOAD_ALL_ARTICLES_FAIL:
+                case LOAD_ALL_ARTICLES+FAIL:
                     this.errors = payload.errors;
-                    this.emitChange();
                     break;
 
                 default:
                     break
             }
+            this.emitChange();
         })
     }
 
