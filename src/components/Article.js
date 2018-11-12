@@ -40,16 +40,16 @@ class Article extends Component {
 
     handleDelete = (ev) => {
         ev.preventDefault();
-        console.log('Delete article id = ', this.props.article.id);
         deleteArticle(this.props.article.id);
     }
 
     getBody() {
-        const { article } = this.props
+        const { article } = this.props;
+        const comments = this.props.article.getRelation('comments');
         return (
             <section>
                 {article.text}
-                <CommentList comments = {article.comments} />
+                <CommentList comments = {comments} />
             </section>
         )
     }

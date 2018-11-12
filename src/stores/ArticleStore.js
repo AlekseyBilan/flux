@@ -1,9 +1,10 @@
 import {DELETE_ARTICLE, LOAD_ALL_ARTICLES, FAIL, START, SUCCESS} from "../constants";
 import {EventEmitter} from 'events';
 import AppDispatcher from '../dispatchers'
+import DataWrapper from './DataWrapper'
 
 class ArticleStore extends EventEmitter {
-    constructor(initialState = []) {
+    constructor(stores, initialState = []) {
         super();
         this.errors = [];
         this._items = {};
@@ -48,7 +49,7 @@ class ArticleStore extends EventEmitter {
     }
 
     _addItem = (item) => {
-        this._items[item.id] = item;
+        this._items[item.id] = new DataWrapper(item, this);
     }
 
     addChangeListener(callback){
