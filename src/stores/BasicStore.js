@@ -7,6 +7,7 @@ class BasicStore extends EventEmitter {
         super();
         this._stores = stores;
         this._items = [];
+        initialState.forEach(this._addItem);
     }
 
     _registerActionSubscription(callback){
@@ -17,14 +18,11 @@ class BasicStore extends EventEmitter {
         return this._stores
     }
 
-
     getAll() {
         return this._items.slice()
     }
 
-    getById(id) {
-        return this._items.filter((item) => item.id === id)[0]
-    }
+    getById = (id) => this._items[id];
 
     delete(id) {
         this._items = this._items.filter((item) => item.id !== id)

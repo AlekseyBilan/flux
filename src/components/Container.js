@@ -15,7 +15,6 @@ class Container extends Component {
 
     componentDidMount(){
         articleStore.addChangeListener(this.handleChange);
-        console.log('Container - componentDidMount this.state.articles', this.state.articles, this.state.articles.length);
         if(!this.state.articles.length) loadAllArticles();
     }
 
@@ -31,7 +30,6 @@ class Container extends Component {
     }
 
     render() {
-        console.log('Container, render, articles = ', this.state.articles);
         if(this.state.loading) return <h1>Loading, please wait...</h1>;
         return (
             <ArticleList articles = {this.state.articles}/>

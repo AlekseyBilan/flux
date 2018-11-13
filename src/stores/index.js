@@ -3,7 +3,6 @@ import BasicStore from './BasicStore';
 import { normalizedComments } from '../fixtures';
 
 const stores = {};
-
 Object.assign(stores, {
    comments: new BasicStore(stores, normalizedComments),
    articles: new ArticleStore(stores)

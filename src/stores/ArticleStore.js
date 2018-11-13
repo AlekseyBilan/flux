@@ -1,13 +1,14 @@
 import {DELETE_ARTICLE, LOAD_ALL_ARTICLES, FAIL, START, SUCCESS} from "../constants";
 import {EventEmitter} from 'events';
-import AppDispatcher from '../dispatchers'
-import DataWrapper from './DataWrapper'
+import AppDispatcher from '../dispatchers';
+import DataWrapper from './DataWrapper';
 
 class ArticleStore extends EventEmitter {
     constructor(stores, initialState = []) {
         super();
         this.errors = [];
         this._items = {};
+        this._stores = stores;
         initialState.forEach(this._addItem);
 
         AppDispatcher.register((action) => {
@@ -36,6 +37,10 @@ class ArticleStore extends EventEmitter {
             }
             this.emitChange();
         })
+    }
+
+    getStores() {
+        return this._stores
     }
 
     getAll() {

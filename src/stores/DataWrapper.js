@@ -1,16 +1,13 @@
 class DataWrapper {
     constructor(item, store) {
-        Object.assign(this, item)
-        this._store = store
+        Object.assign(this, item);
+        this._store = store;
     }
 
     getRelation(relation) {
-    /*
-            if (!Array.isArray(this[rel])) throw new Error('no such relation')
-            return this[rel]
-                .map((id) => this.getStore().stores[rel].getById(id))
-    */
-    return []
+        const relStore = this._store.getStores()[relation];
+        if (!relStore || !this[relation]) return [];
+        return this[relation].map(relStore.getById);
     }
 }
 
